@@ -1,0 +1,24 @@
+.menu {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.break {
+    flex-basis: 100%;
+    height: 0;
+}
+
+.butao {
+    font-size: 5rem;
+    border: none;
+}
+
+.butao:hover {
+    font-size: 6rem;
+}
+
+.titulo {
+    font-size: 7rem;
+    letter-spacing: .5rem;
+}
