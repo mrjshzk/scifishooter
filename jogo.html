@@ -5,8 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sci-fi Shooter</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        canvas {
+            border: 1px solid black;
+        }  
+    </style>
 </head>
 <body>
-    <div class="menu"><h1>O jogo está a ser feito</h1></div>
+    <div class="menu">
+        <h1 id="temporario"></h1>
+        <div class="break"></div>
+        <p>O jogo está em progresso</p>
+        <div class="break"></div>
+        <canvas id="canv" width="600" height="450"></h1></canvas>
+    </div>
+    
+    <script>
+        document.getElementById("temporario").innerText = "A cor escolhida foi " + localStorage.getItem("cor")
+    </script>
 </body>
 </html>
