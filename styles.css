@@ -5,6 +5,12 @@
     --clr-accent: #000000;
   }
   
+body {
+    background-image: url(imagens/2d3c99a6c9a58ce0850e9b41cc24673a.jpg);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    color: #f1f5f9;
+}
 
 .menu {
     padding: 70px 0;
@@ -73,7 +79,7 @@ html {
     color: var(--clr-light);
     align-items: center;
     text-align: center;
-    border: 10px solid var(--clr-accent);
+    
     border-radius: 10px;
   }
 
@@ -88,18 +94,22 @@ html {
 
 #vermelho {
     background-color: #ff0026;
+    border: 10px solid #790012;
 }
 
 #azul {
     background-color: #414ff2;
+    border: 10px solid #000a7e;
 }
 
 #rosa {
     background-color: #ff0090;
+    border: 10px solid #5d0035;
 }
 
 #verde {
     background-color: #118b2c;
+    border: 10px solid #005412;
 }
 
 .cor:hover {
@@ -107,17 +117,17 @@ html {
 }
 
 #vermelho:hover {
-    transform: scale(1.5) translate(25%, 25%);
+    transform: scale(1.25) translate(15%, 15%);
 }
 
 #azul:hover {
-    transform: scale(1.5) translate(25%, -25%);
+    transform: scale(1.25) translate(15%, -15%);
 }
 
 #rosa:hover {
-    transform: scale(1.5) translate(-25%, -25%);
+    transform: scale(1.25) translate(-15%, -15%);
 }
 
 #verde:hover {
-    transform: scale(1.5) translate(-25%, 25%);
+    transform: scale(1.25) translate(-15%, 15%);
 }
