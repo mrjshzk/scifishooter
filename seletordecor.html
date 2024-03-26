@@ -5,40 +5,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sci-fi Shooter</title>
     <link rel="stylesheet" href="styles.css">
-    <script>
-        function escolheuVermelho() {
-            console.log("vermelho")
-            localStorage.setItem("cor", "vermelho")
-            location.href = '/jogo.html'
-        }
-
-        function escolheuVerde() {
-            console.log("verde")
-            localStorage.setItem("cor", "verde")
-            location.href = '/jogo.html'
-        }
-
-        function escolheuAzul() {
-            console.log("azul")
-            localStorage.setItem("cor", "azul")
-            location.href = '/jogo.html'
-        }
-
-        function escolheuRosa() {
-            console.log("rosa")
-            localStorage.setItem("cor", "rosa")
-            location.href = '/jogo.html'
-        }
-    </script>
+    
 </head>
 <body>
-    <div class="menu" style="justify-content: space-around;">
+    <div class="menu" style="justify-content:space-evenly;">
         <h1>Escolha a sua cor</h1>
         <div class="tabela-cores">
             <div class="cor" id="vermelho"><button onclick="escolheuVermelho()"></button></div>
             <div class="cor" id="verde"><button onclick="escolheuVerde()"></button></div>
             <div class="cor" id="azul"><button onclick="escolheuAzul()"></button></div>
             <div class="cor" id="rosa"><button onclick="escolheuRosa()"></button></div>
+            <button class="butao" id="botaoConfirmacao" style="font-size: 1.5rem; padding: 1%;" onclick="confirmarEscolha()">Confirmar Escolha</button>
     </div>
+
+    <script>
+        let confirmacao = document.getElementById("botaoConfirmacao")
+        function escolheuVermelho() {
+            console.log("vermelho")
+            localStorage.setItem("cor", "vermelho")
+            atualizarConfirmacao()
+        }
+
+        function escolheuVerde() {
+            console.log("verde")
+            localStorage.setItem("cor", "verde")
+            atualizarConfirmacao()
+        }
+
+        function escolheuAzul() {
+            console.log("azul")
+            localStorage.setItem("cor", "azul")
+            atualizarConfirmacao()
+        }
+
+        function escolheuRosa() {
+            console.log("rosa")
+            localStorage.setItem("cor", "rosa")
+            atualizarConfirmacao()
+        }
+        
+
+        function atualizarConfirmacao() {
+            let nova_cor = (localStorage.getItem("cor")).toLocaleUpperCase()
+            confirmacao.innerText = "Confirmar Escolha -> " + nova_cor
+        }
+
+        function confirmarEscolha() {
+            if (localStorage.getItem("cor") == null || localStorage.getItem("cor") == "") {
+                alert("Tem de escolher uma cor")
+            } else {
+                location.href = "/jogo.html"
+            }
+            
+        }
+    </script>
 </body>
 </html>

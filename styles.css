@@ -29,7 +29,7 @@ html {
     transition: all .2s ease-in-out;
     font-size: 3rem;
     border: none;
-    border-radius: 30%;
+    border-radius: 15%;
 }
 
 .butao:hover {
@@ -55,6 +55,7 @@ html {
 }
 
 .tabela-cores {
+    position: relative;
     width: 500px;
     height: 500px;
     display: flex;
@@ -76,9 +77,6 @@ html {
     border-radius: 10px;
   }
 
-.cor:hover {
-    transform: scale(1.4);
-}
 
 .cor > button {
     background: transparent;
@@ -89,7 +87,7 @@ html {
 }
 
 #vermelho {
-    background-color: #fb7185;
+    background-color: #ff0026;
 }
 
 #azul {
@@ -97,9 +95,29 @@ html {
 }
 
 #rosa {
-    background-color: #fa3aa7;
+    background-color: #ff0090;
 }
 
 #verde {
     background-color: #118b2c;
+}
+
+.cor:hover {
+    z-index: 1;
+}
+
+#vermelho:hover {
+    transform: scale(1.5) translate(25%, 25%);
+}
+
+#azul:hover {
+    transform: scale(1.5) translate(25%, -25%);
+}
+
+#rosa:hover {
+    transform: scale(1.5) translate(-25%, -25%);
+}
+
+#verde:hover {
+    transform: scale(1.5) translate(-25%, 25%);
 }
