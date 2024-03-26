@@ -1,7 +1,22 @@
+/* BASE STYLES */
+:root {
+    --clr-dark: #0f172a;
+    --clr-light: #f1f5f9;
+    --clr-accent: #000000;
+  }
+  
+
 .menu {
+    padding: 70px 0;
+    text-align: center;
     display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+    justify-content:center;
+    flex-wrap:wrap;
+    align-items: center;
+}
+
+html {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 .break {
@@ -10,15 +25,81 @@
 }
 
 .butao {
-    font-size: 5rem;
+    padding: 5%;
+    transition: all .2s ease-in-out;
+    font-size: 3rem;
     border: none;
+    border-radius: 30%;
 }
 
 .butao:hover {
-    font-size: 6rem;
+    transform: scale(120%);
+    
 }
 
 .titulo {
+    height: 1rem;
     font-size: 7rem;
     letter-spacing: .5rem;
+}
+
+.texto {
+    font-size: 4rem;
+}
+
+.texto-jogador {
+    text-align: center;
+    font-size: 120%;
+    width: 100%;
+    height: auto;
+}
+
+.tabela-cores {
+    width: 500px;
+    height: 500px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 1em;
+}
+
+.cor {
+    transition: all .2s ease-out;
+    width: 150px;
+    height: 150px;
+    padding: 1em;
+    font-weight: 700;
+    color: var(--clr-light);
+    align-items: center;
+    text-align: center;
+    border: 10px solid var(--clr-accent);
+    border-radius: 10px;
+  }
+
+.cor:hover {
+    transform: scale(1.4);
+}
+
+.cor > button {
+    background: transparent;
+    border: none !important;
+    font-size:0;
+    width: 100%;
+    height: 100%;
+}
+
+#vermelho {
+    background-color: #fb7185;
+}
+
+#azul {
+    background-color: #414ff2;
+}
+
+#rosa {
+    background-color: #fa3aa7;
+}
+
+#verde {
+    background-color: #118b2c;
 }

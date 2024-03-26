@@ -5,10 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sci-fi Shooter</title>
     <link rel="stylesheet" href="styles.css">
+    <script>
+        function escolheuVermelho() {
+            console.log("vermelho")
+            location.href = '/jogo.html'
+        }
+
+        function escolheuVerde() {
+            console.log("verde")
+            location.href = '/jogo.html'
+        }
+
+        function escolheuAzul() {
+            console.log("azul")
+            location.href = '/jogo.html'
+        }
+
+        function escolheuRosa() {
+            console.log("rosa")
+            location.href = '/jogo.html'
+        }
+    </script>
 </head>
 <body>
-    <div class="menu">
-        
+    <div class="menu" style="justify-content: space-around;">
+        <h1>Escolha a sua cor</h1>
+        <div class="tabela-cores">
+            <div class="cor" id="vermelho"><button onclick="escolheuVermelho()"></button></div>
+            <div class="cor" id="verde"><button onclick="escolheuVerde()"></button></div>
+            <div class="cor" id="azul"><button onclick="escolheuAzul()"></button></div>
+            <div class="cor" id="rosa"><button onclick="escolheuRosa()"></button></div>
     </div>
 </body>
 </html>
