@@ -6,7 +6,7 @@
   }
   
 body {
-    background-image: url(imagens/2d3c99a6c9a58ce0850e9b41cc24673a.jpg);
+    background-color:#00021e;
     background-repeat: no-repeat;
     background-size: 100%;
     color: #f1f5f9;
@@ -30,7 +30,16 @@ html {
     height: 0;
 }
 
-.butao {
+.butaoJogar {
+    font-size:35px;
+    border-radius: 15px;
+    background: #ffffff;
+    padding: 20px;
+    width: 150px;
+    height: 100px;
+}
+
+.butao2 {
     padding: 5%;
     transition: all .2s ease-in-out;
     font-size: 3rem;
@@ -38,7 +47,8 @@ html {
     border-radius: 15%;
 }
 
-.butao:hover {
+.butaoJogar:hover {
+    transition: all .2s ease-out;
     transform: scale(120%);
     
 }
