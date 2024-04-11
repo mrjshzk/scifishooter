@@ -9,8 +9,11 @@
 </head>
 <body>
     <div class="menu" style="justify-content:space-evenly;">
-        <h1>Escolha a sua cor</h1>
+        
+        <img id="nave" src="imagens/Rosa.png">
         <div class="tabela-cores">
+            <h1 id="substituir">Escolha a sua cor</h1>
+            <div class="break"></div>
             <div class="cor" id="vermelho"><button onclick="escolheuVermelho()"></button></div>
             <div class="cor" id="verde"><button onclick="escolheuVerde()"></button></div>
             <div class="cor" id="azul"><button onclick="escolheuAzul()"></button></div>
@@ -23,24 +26,36 @@
         function escolheuVermelho() {
             console.log("vermelho")
             localStorage.setItem("cor", "vermelho")
+
+            let imagem = document.getElementById("nave")
+            imagem.src = "imagens/Vermelho.png"
             atualizarConfirmacao()
         }
 
         function escolheuVerde() {
             console.log("verde")
             localStorage.setItem("cor", "verde")
+
+            let imagem = document.getElementById("nave")
+            imagem.src = "imagens/Verde.png"
             atualizarConfirmacao()
         }
 
         function escolheuAzul() {
             console.log("azul")
             localStorage.setItem("cor", "azul")
+
+            let imagem = document.getElementById("nave")
+            imagem.src = "imagens/Azul.png"
             atualizarConfirmacao()
         }
 
         function escolheuRosa() {
             console.log("rosa")
             localStorage.setItem("cor", "rosa")
+
+            let imagem = document.getElementById("nave")
+            imagem.src = "imagens/Rosa.png"
             atualizarConfirmacao()
         }
         
@@ -48,6 +63,9 @@
         function atualizarConfirmacao() {
             let nova_cor = (localStorage.getItem("cor")).toLocaleUpperCase()
             confirmacao.innerText = "Confirmar Escolha -> " + nova_cor
+
+            let texto = document.getElementById("substituir")
+            texto.innerHTML = ""
         }
 
         function confirmarEscolha() {
