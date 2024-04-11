@@ -6,7 +6,7 @@
   }
   
 body {
-    background-color:#00021e;
+    background-color: #00021e;
     background-repeat: no-repeat;
     background-size: 100%;
     color: #f1f5f9;
@@ -19,6 +19,7 @@ body {
     justify-content:center;
     flex-wrap:wrap;
     align-items: center;
+    align-content: center;
 }
 
 html {
@@ -30,16 +31,7 @@ html {
     height: 0;
 }
 
-.butaoJogar {
-    font-size:35px;
-    border-radius: 15px;
-    background: #ffffff;
-    padding: 20px;
-    width: 150px;
-    height: 100px;
-}
-
-.butao2 {
+.butao {
     padding: 5%;
     transition: all .2s ease-in-out;
     font-size: 3rem;
@@ -47,10 +39,8 @@ html {
     border-radius: 15%;
 }
 
-.butaoJogar:hover {
-    transition: all .2s ease-out;
+.butao:hover {
     transform: scale(120%);
-    
 }
 
 .titulo {
@@ -144,4 +134,5 @@ html {
 
 #nave {
     max-width: 400px;
+    
 }

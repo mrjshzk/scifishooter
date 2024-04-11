@@ -9,15 +9,16 @@
 </head>
 <body>
     <div class="menu" style="justify-content:space-evenly;">
+        
         <img id="nave" src="imagens/Branco.png">
         <div class="tabela-cores">
             <h1 id="substituir">Escolha a sua cor</h1>
             <div class="break"></div>
-            <div class="cor" id="vermelho"><button onclick="escolheuVermelho()"></button></div>
+            <div class="cor" id="vermelho"> <button onclick="escolheuVermelho()"></button></div>
             <div class="cor" id="verde"><button onclick="escolheuVerde()"></button></div>
             <div class="cor" id="azul"><button onclick="escolheuAzul()"></button></div>
             <div class="cor" id="rosa"><button onclick="escolheuRosa()"></button></div>
-            <button class="butao2" id="botaoConfirmacao" style="font-size: 1.5rem; padding: 1%;" onclick="confirmarEscolha()">Confirmar Escolha</button>
+            <button class="butao" id="botaoConfirmacao" style="font-size: 1.5rem; padding: 1%;" onclick="confirmarEscolha()">Confirmar Escolha</button>
     </div>
 
     <script>
@@ -60,8 +61,6 @@
         
 
         function atualizarConfirmacao() {
-            let nova_cor = (localStorage.getItem("cor")).toLocaleUpperCase()
-
             let texto = document.getElementById("substituir")
             texto.innerHTML = localStorage.getItem("cor")
         }
@@ -72,8 +71,9 @@
             } else {
                 location.href = "/jogo.html"
             }
-            
         }
+
+
     </script>
 </body>
 </html>
