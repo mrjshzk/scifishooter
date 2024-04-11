@@ -6,7 +6,7 @@
   }
   
 body {
-    background-image: url(imagens/2d3c99a6c9a58ce0850e9b41cc24673a.jpg);
+    background-color: #00021e;
     background-repeat: no-repeat;
     background-size: 100%;
     color: #f1f5f9;
@@ -19,6 +19,7 @@ body {
     justify-content:center;
     flex-wrap:wrap;
     align-items: center;
+    align-content: center;
 }
 
 html {
@@ -40,7 +41,6 @@ html {
 
 .butao:hover {
     transform: scale(120%);
-    
 }
 
 .titulo {
@@ -134,4 +134,5 @@ html {
 
 #nave {
     max-width: 400px;
+    
 }

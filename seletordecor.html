@@ -10,11 +10,11 @@
 <body>
     <div class="menu" style="justify-content:space-evenly;">
         
-        <img id="nave" src="imagens/Rosa.png">
+        <img id="nave" src="imagens/Branco.png">
         <div class="tabela-cores">
             <h1 id="substituir">Escolha a sua cor</h1>
             <div class="break"></div>
-            <div class="cor" id="vermelho"><button onclick="escolheuVermelho()"></button></div>
+            <div class="cor" id="vermelho"> <button onclick="escolheuVermelho()"></button></div>
             <div class="cor" id="verde"><button onclick="escolheuVerde()"></button></div>
             <div class="cor" id="azul"><button onclick="escolheuAzul()"></button></div>
             <div class="cor" id="rosa"><button onclick="escolheuRosa()"></button></div>
@@ -24,8 +24,8 @@
     <script>
         let confirmacao = document.getElementById("botaoConfirmacao")
         function escolheuVermelho() {
-            console.log("vermelho")
-            localStorage.setItem("cor", "vermelho")
+            console.log("Vermelho")
+            localStorage.setItem("cor", "Vermelho")
 
             let imagem = document.getElementById("nave")
             imagem.src = "imagens/Vermelho.png"
@@ -33,8 +33,8 @@
         }
 
         function escolheuVerde() {
-            console.log("verde")
-            localStorage.setItem("cor", "verde")
+            console.log("Verde")
+            localStorage.setItem("cor", "Verde")
 
             let imagem = document.getElementById("nave")
             imagem.src = "imagens/Verde.png"
@@ -42,8 +42,8 @@
         }
 
         function escolheuAzul() {
-            console.log("azul")
-            localStorage.setItem("cor", "azul")
+            console.log("Azul")
+            localStorage.setItem("cor", "Azul")
 
             let imagem = document.getElementById("nave")
             imagem.src = "imagens/Azul.png"
@@ -51,8 +51,8 @@
         }
 
         function escolheuRosa() {
-            console.log("rosa")
-            localStorage.setItem("cor", "rosa")
+            console.log("Rosa")
+            localStorage.setItem("cor", "Rosa")
 
             let imagem = document.getElementById("nave")
             imagem.src = "imagens/Rosa.png"
@@ -61,11 +61,8 @@
         
 
         function atualizarConfirmacao() {
-            let nova_cor = (localStorage.getItem("cor")).toLocaleUpperCase()
-            confirmacao.innerText = "Confirmar Escolha -> " + nova_cor
-
             let texto = document.getElementById("substituir")
-            texto.innerHTML = ""
+            texto.innerHTML = localStorage.getItem("cor")
         }
 
         function confirmarEscolha() {
@@ -74,8 +71,9 @@
             } else {
                 location.href = "/jogo.html"
             }
-            
         }
+
+
     </script>
 </body>
 </html>
