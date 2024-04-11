@@ -9,7 +9,8 @@
 </head>
 <body>
     <div class="menu" style="justify-content:space-evenly;">
-        <h1>Escolha a sua cor</h1>
+        <h1 id="substituir">Escolha a sua cor</h1>
+        <img id="nave">
         <div class="tabela-cores">
             <div class="cor" id="vermelho"><button onclick="escolheuVermelho()"></button></div>
             <div class="cor" id="verde"><button onclick="escolheuVerde()"></button></div>
@@ -24,30 +25,42 @@
             console.log("vermelho")
             localStorage.setItem("cor", "vermelho")
             atualizarConfirmacao()
+            let image= document.getElementById("nave")
+            image.src= "imagens/Vermelho.png"
+            
         }
 
         function escolheuVerde() {
             console.log("verde")
             localStorage.setItem("cor", "verde")
             atualizarConfirmacao()
+            let image= document.getElementById("nave")
+            image.src= "imagens/Verde.png"
         }
 
         function escolheuAzul() {
             console.log("azul")
             localStorage.setItem("cor", "azul")
             atualizarConfirmacao()
+            let image= document.getElementById("nave")
+            image.src= "imagens/Azul.png"
         }
 
         function escolheuRosa() {
             console.log("rosa")
             localStorage.setItem("cor", "rosa")
             atualizarConfirmacao()
+            let image= document.getElementById("nave")
+            image.src= "imagens/Rosa.png"
         }
         
 
         function atualizarConfirmacao() {
             let nova_cor = (localStorage.getItem("cor")).toLocaleUpperCase()
             confirmacao.innerText = "Confirmar Escolha -> " + nova_cor
+
+            let texto= document.getElementById("substituir")
+            texto.innerHTML=""
         }
 
         function confirmarEscolha() {

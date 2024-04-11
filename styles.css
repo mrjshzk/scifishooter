@@ -131,3 +131,7 @@ html {
 #verde:hover {
     transform: scale(1.25) translate(-15%, 15%);
 }
+
+#nave{
+    max-width: 400px;
+}
