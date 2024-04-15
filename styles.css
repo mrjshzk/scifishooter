@@ -31,16 +31,32 @@ html {
     height: 0;
 }
 
+.butaoJogar {
+    border-radius: 15px;
+    background: #ffffff;
+    padding: 20px;
+    width: 200px;
+    height: 80px;
+    font-size:30px;
+  }
+
+  .butaoJogar:hover {
+    transform: scale(110%);
+    transition: all .2s ease-out;
+}
+
 .butao {
-    padding: 5%;
-    transition: all .2s ease-in-out;
-    font-size: 3rem;
-    border: none;
-    border-radius: 15%;
+    border-radius: 10px;
+    background: #ffffff;
+    padding: 20px;
+    width: 270px;
+    height:70px;
+    font-size:30px;
 }
 
 .butao:hover {
     transform: scale(120%);
+    transition: all .2s ease-out;
 }
 
 .titulo {
