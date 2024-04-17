@@ -4,70 +4,69 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Scoreboard</title>
+    <link rel="stylesheet" href="styles.css">
     <style>
         table, th, td {
-            border: 1px solid;
+            border: 1px dotted;
             font-size: 2rem;
-            width: 50%;
             text-align: center;
           }
-        
-
+        table {
+            width: 35%;
+        }
+        th {
+            color: white;
+            font-weight: bolder;
+            background-color: darkblue;
+        }
+        td {
+            color: rgb(255, 255, 255);
+        }
     </style>
 </head>
 <body>
-    <center>
-        <h1>Scoreboard</h1>
+        <script src="score.js"></script>
+        <div class="menu" style="padding: 1rem 0;">
+        <h1 class="titulo" style="height: 6rem;">Scoreboard</h1>
+        <div class="break"></div>
         <table id="Scoreboard">
             <tr>
+                <th>Rank</th>
                 <th>Nome</th>
                 <th>Score</th>
             </tr>
         </table>
-    </center>
-</body>
-<script>
-    // referencia para a tabela para podermos adicionar elementos
-    var table = document.getElementById("Scoreboard")
+    </div>
 
-    // Definição da classe para scores
-    class Score {
-        constructor(nome, score) {
-            this.nome = nome;
-            this.score = score;
+    <footer>
+        <a target="_blank" href="index.html">Página Inicial</a>
+    </footer>
+    <script>
+        // referencia para a tabela para podermos adicionar elementos
+        var table = document.getElementById("Scoreboard")
+    
+        console.log("Scores: ", JSON.parse(localStorage.getItem("Scores")))
+    
+        // dar loop por todos os scores
+        var scores = JSON.parse(localStorage.getItem("Scores"))
+        for (var i = 0; i < scores.length; i++) {
+            var nova_coluna = document.createElement("tr")
+            
+            var rank = document.createElement("td")
+            rank.innerText = i + 1
+    
+            var nome = document.createElement("td")
+            nome.innerText = scores[i].nome
+            
+            var score = document.createElement("td")
+            score.innerText = scores[i].score
+    
+            nova_coluna.appendChild(rank)
+            nova_coluna.appendChild(nome)
+            nova_coluna.appendChild(score)
+            table.appendChild(nova_coluna)
         }
-    }
+    </script>
+</body>
 
-    // Dados pre-feitos, podem depois ser removidos
-    const score1 = new Score("Maria", 75)
-    const score2 = new Score("José", 500)
-    const score3 = new Score("José", 250)
-    const score4 = new Score("José", 1000)
-
-    var array_scores = [score1, score2, score3, score4]
-
-    // magia negra
-    array_scores.sort(function(a, b) { return b.score - a.score})
-
-    // Passar os dados para string em formato JSON para poderem ser guardados na LocalStorage
-    localStorage.setItem("Scores", JSON.stringify(array_scores))
-    console.log("Scores: ", JSON.parse(localStorage.getItem("Scores")))
-
-    // dar loop por todos os scores
-    var scores = JSON.parse(localStorage.getItem("Scores"))
-    for (var i = 0; i < scores.length; i++) {
-        var nova_coluna = document.createElement("tr")
-        
-
-        var nome = document.createElement("td")
-        nome.innerText = scores[i].nome
-        
-        var score = document.createElement("td")
-        score.innerText = scores[i].score
-
-        nova_coluna.appendChild(nome)
-        nova_coluna.appendChild(score)
-        table.appendChild(nova_coluna)
-    }
-</script>
 </html>
