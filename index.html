@@ -15,16 +15,21 @@
         <div class="break"></div>
 
         <form action="seletordecor.html">
-        <input type="text" class="texto-jogador" required>
+        <input type="text" class="texto-jogador" id="nome" required>
         
         <div class="break"></div>
-        
         <p></p>
-        <button class="butaoJogar">Jogar</button>
+        <button class="butaoJogar" onclick="guardaNome()">Jogar</button>
         </form>
 
     </div>
-
+    <script>
+        function guardaNome() {
+            var input = document.getElementById("nome")
+            var nome = input.value
+            localStorage.setItem("Nome", nome)
+        }
+    </script>
     <footer>
         <a target="_blank" href="scoreboard.html">Scoreboard</a>
     </footer>
