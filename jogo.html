@@ -8,7 +8,6 @@
     <style>
         canvas {
             border: 10px solid rgb(1, 0, 52);
-            background-image: url(imagens/fc72451a-59c3-4d31-adc4-a35690b0afe2.webp);
             background-clip: border-box;
             
         }  
@@ -20,13 +19,55 @@
         <div class="break"></div>
         <p>O jogo está em progresso</p>
         <div class="break"></div>
-        <canvas id="canv" width="600" height="450"></h1></canvas>
+        <canvas id="canv" width="600" height="480">Your browser does not support canvas.</canvas>
     </div>
     <footer>
         <a target="_blank" href="scoreboard.html">Scoreboard</a>
     </footer>
     <script>
+        const TAU = Math.PI * 2
         document.getElementById("temporario").innerText = "A cor escolhida foi " + localStorage.getItem("cor")
+        
+        const canvas = document.getElementById("canv")
+        const width = canvas.width
+        const height = canvas.height
+        const ctx = canvas.getContext("2d")
+
+        
+        ctx.strokeStyle = 'green'
+        ctx.fillStyle = 'white'
+        
+        ctx.lineWidth = 8
+        ctx.beginPath()
+        ctx.moveTo(200,150)
+        ctx.bezierCurveTo(300, 200, width, height, width/2, height/2)
+        ctx.stroke()
+
+        ctx.lineWidth = 4
+        ctx.beginPath()
+        ctx.arc(width/2, height/2, 50, 0, TAU)
+        ctx.fill()
+        ctx.stroke()
+
+        ctx.lineWidth = 1
+        ctx.font = '80px monospace'
+        ctx.fillText("Hello canvas!", width-575, height-15)
+
+        let img = new Image(250, 250)
+        img.src = "imagens/Vermelho.png"
+
+        imgProp = {size: 150, pos: [width/2-150/2, height/2-150/2]}
+        img.onload = () => {ctx.drawImage(img, imgProp.pos[0], imgProp.pos[1], imgProp.size, imgProp.size)}
+        
+        canvas.addEventListener('mousemove', (e) => {
+            var color = ctx.getImageData(e.offsetX, e.offsetY, 1, 1)
+            let r = color.data[0]
+            let g = color.data[1]
+            let b = color.data[2]
+            let a = color.data[3]
+            console.log(`rgba(${r}, ${g}, ${b}, ${a})`)
+            document.getElementById("canv").style.backgroundColor = `rgba(${r}, ${g}, ${b}, ${a})`
+        })
     </script>
 </body>
 </html>
