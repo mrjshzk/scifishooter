@@ -19,7 +19,7 @@
         <div class="break"></div>
         <p>O jogo está em progresso</p>
         <div class="break"></div>
-        <canvas id="canv" width="600" height="480">Your browser does not support canvas.</canvas>
+        <canvas id="canv" width="600" height="480" style="background-color: black;">Your browser does not support canvas.</canvas>
     </div>
     <footer>
         <a target="_blank" href="scoreboard.html">Scoreboard</a>
@@ -33,41 +33,206 @@
         const height = canvas.height
         const ctx = canvas.getContext("2d")
 
+        ctx.strokeStyle = "green";
+        ctx.fillStyle = "white"
+
+        let enemies = []
+        let bullets = []
+        let enemy_bullets = []
+
+        class Object {
+            constructor(x, y, width, height) {
+                this.x = x
+                this.y = y
+                this.height = height
+                this.width = width
+            }
+        }
+        class Enemy extends Object {
+            direction_x
+            speed = 1
+            constructor(x, y, width, height) {
+                super(x, y, width, height)
+                let rand_num = Math.round(Math.random())
+                
+                if (rand_num == 0) {rand_num = -1;}
+                
+                this.direction_x = rand_num
+                this.speed = Math.round((Math.random() + 1) * 3)
+            }
+        }
+
+        class Bullet extends Object {
+            speed = 10
+            constructor(x, y, width, height) {
+                super(x, y, width, height)
+                
+            }
+        }
+
+        class EnemyBullet extends Object {
+            speed = 1
+            constructor(x, y, width, height) {
+                super(x, y, width, height)
+                
+            }
+        }
+        class Player extends Object {
+            speed = 10
+            can_shoot = true
+            has_lost = false
+            bullet_delay = 100 // em milisegundos
+            constructor(x, y, width, height) {
+                super(x, y, width, height)
+            }
+        }
+
+        let player = new Player(width / 2 - 15, height - 100, 30, 30)
         
-        ctx.strokeStyle = 'green'
-        ctx.fillStyle = 'white'
         
-        ctx.lineWidth = 8
-        ctx.beginPath()
-        ctx.moveTo(200,150)
-        ctx.bezierCurveTo(300, 200, width, height, width/2, height/2)
-        ctx.stroke()
 
-        ctx.lineWidth = 4
-        ctx.beginPath()
-        ctx.arc(width/2, height/2, 50, 0, TAU)
-        ctx.fill()
-        ctx.stroke()
+        // criar alguns inimigos
+        enemies.push(new Enemy(width / 2, 150, 20, 20))
+        enemies.push(new Enemy(width / 2, 200, 20, 20))
+        enemies.push(new Enemy(width / 2, 50, 20, 20))
 
-        ctx.lineWidth = 1
-        ctx.font = '80px monospace'
-        ctx.fillText("Hello canvas!", width-575, height-15)
-
-        let img = new Image(250, 250)
-        img.src = "imagens/Vermelho.png"
-
-        imgProp = {size: 150, pos: [width/2-150/2, height/2-150/2]}
-        img.onload = () => {ctx.drawImage(img, imgProp.pos[0], imgProp.pos[1], imgProp.size, imgProp.size)}
-        
-        canvas.addEventListener('mousemove', (e) => {
-            var color = ctx.getImageData(e.offsetX, e.offsetY, 1, 1)
-            let r = color.data[0]
-            let g = color.data[1]
-            let b = color.data[2]
-            let a = color.data[3]
-            console.log(`rgba(${r}, ${g}, ${b}, ${a})`)
-            document.getElementById("canv").style.backgroundColor = `rgba(${r}, ${g}, ${b}, ${a})`
+        enemies.forEach(enemy => {
+            setInterval(() => {
+                enemy_bullets.push(new EnemyBullet(enemy.x + enemy.width /2, enemy.y + enemy.height / 2, 15, 15))
+            }, Math.round(Math.random() * 10000))
+            
         })
+        console.log(enemy_bullets)
+        // game loop
+        function render() {
+            if (enemies.length <=1) {
+                setTimeout(() => {
+                    ctx.font = "50px serif";
+                    ctx.fillStyle = 'white'
+                    ctx.clearRect(0, 0, width, height);
+                    ctx.fillText("YOU WON!", width / 2 - 110, height /2)
+                }, 2000)
+                return
+            } else if (player.has_lost) {
+                setTimeout(() => {
+                    ctx.font = "50px serif";
+                    ctx.fillStyle = 'white'
+                    ctx.clearRect(0, 0, width, height);
+                    ctx.fillText("YOU LOST!", width / 2 - 110, height /2)
+                }, 2000)
+                return
+            }
+            requestAnimationFrame(render);
+
+
+            // apagar tudo antes de atualizar
+            ctx.clearRect(0, 0, width, height);
+
+            update(player)
+            
+            enemies.forEach(enemy => {
+                update_enemy(enemy)
+            });
+
+            enemy_bullets.forEach(bul => {
+                update_enemy_bul(bul)
+            })
+            
+            bullets.forEach(bullet => {
+                update_bullet(bullet)
+            })
+        }
+        window.onload = render;
+
+        // movimento player e balas
+
+        // keys pressed é usado para podermos clicar em varios botoes ao mesmo tempo
+        let keysPressed = {}
+        document.addEventListener('keydown', (e) => {
+            keysPressed[e.key] = true
+            if (keysPressed["ArrowLeft"] == true && player.x > 100) {
+                //move left
+                player.x -= player.speed;
+            } if(keysPressed["ArrowUp"] == true && player.y > height - 150) {
+                //move up
+                player.y -= player.speed;
+                
+            } if (keysPressed["ArrowRight"] == true && player.x < width - 100) {
+                // move right
+                player.x += player.speed;
+           } if (keysPressed["ArrowDown"] == true && player.y < height - player.height - 10) {
+                //move down
+                player.y += player.speed;
+            }
+
+            if (keysPressed[" "] && player.can_shoot) {
+                player.can_shoot = false
+                setTimeout(() => {
+                    player.can_shoot = true
+                }, player.bullet_delay)
+                let new_bul = new Bullet(player.x + player.width / 2 - 5, player.y + 10, 10, 10)
+                bullets.push(new_bul)
+            }
+        })
+
+        document.addEventListener('keyup', (e) => {
+            delete keysPressed[e.key]
+        })
+
+        // helper functions
+        function update(obj) {
+            ctx.fillStyle = 'white'
+            ctx.fillRect(obj.x, obj.y, obj.width, obj.height)
+        }
+
+        function update_enemy(enemy) {
+
+            enemy.x += enemy.speed * enemy.direction_x
+
+            ctx.fillStyle = 'red'
+            ctx.fillRect(enemy.x, enemy.y, enemy.width, enemy.height)
+
+            if (enemy.x + enemy.width >= width) {
+                enemy.direction_x *= -1
+            } else if (enemy.x - enemy.width <= 0) {
+                enemy.direction_x *= -1
+            }
+        }
+        function update_enemy_bul(bul) {
+            bul.y += bul.speed
+            ctx.fillStyle = 'purple'
+            ctx.fillRect(bul.x, bul.y, bul.width, bul.height)
+            if (collides(bul, player)) {
+                player.has_lost = true
+            }
+        }
+        function update_bullet(bul) {
+            bul.y -= bul.speed
+            ctx.fillStyle = 'green'
+            ctx.fillRect(bul.x, bul.y, bul.width, bul.height)
+
+            // if bullet collides with object then delete it
+            for (let i = 0; i < enemies.length; i++) {
+                if (collides(enemies[i], bul)) {
+                    enemies.splice(i, i)
+                }
+            }
+
+            if (bul.y + bul.height / 2 < 0) {
+                delete bul
+            }
+        }
+
+        
+        function collides(obj1, obj2) {
+            if (obj1 == null || obj2 == null) return
+            return obj1.x < obj2.x + obj2.width &&
+                obj1.x + obj1.width > obj2.x &&
+                obj1.y < obj2.y + obj2.height &&
+                obj1.y + obj1.height > obj2.y
+        }
+        
+        
     </script>
 </body>
 </html>
