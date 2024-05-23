@@ -20,6 +20,7 @@ function add_score(new_score) {
         console.log(error)
     }
 
+    
     if (current_scores == null || current_scores.length == 0 ) {
         current_scores = [new_score]
         localStorage.setItem("Scores", JSON.stringify(current_scores))
@@ -46,21 +47,6 @@ function add_score(new_score) {
 }
 
 // alguns dados pre-feitos, depois será integrado no jogo
-localStorage.setItem("Scores", null)
-add_score(new Score("Miguel", 100))
-add_score(new Score("Miguel", 250))
-add_score(new Score("Miguel", 150))
-add_score(new Score("Miguel", 650))
-add_score(new Score("Miguel", 350))
-add_score(new Score("Miguel", 250))
-add_score(new Score("Miguel", 100))
-add_score(new Score("José", 500))
-add_score(new Score("Profª Teresa Terroso", 99999))
-add_score(new Score("Spongebob", 10000))
-add_score(new Score("Bruna", 450))
-add_score(new Score("Bruna", 4050))
 
-if (localStorage.getItem("Nome") != null) {
-    add_score(new Score(localStorage.getItem("Nome"), 10001))
-}
+
 

@@ -9,7 +9,6 @@
         canvas {
             border: 10px solid rgb(1, 0, 52);
             background-clip: border-box;
-            
         }  
     </style>
 </head>
@@ -17,14 +16,19 @@
     <div class="menu">
         <h1 id="temporario"></h1>
         <div class="break"></div>
-        <p>O jogo está em progresso</p>
+        <p>Setas para mover | Espaço para disparar</p>
         <div class="break"></div>
-        <canvas id="canv" width="600" height="480" style="background-color: black;">Your browser does not support canvas.</canvas>
+        <canvas id="canv" width="640" height="480" style="background-color: black;">Your browser does not support canvas.</canvas>
     </div>
     <footer>
         <a target="_blank" href="scoreboard.html">Scoreboard</a>
     </footer>
+    <script src="score.js"></script>
     <script>
+        localStorage.setItem("Scores", null)
+        add_score(new Score("Ben 10", 500))
+        add_score(new Score("Spongebob", 10000))
+
         const TAU = Math.PI * 2
         document.getElementById("temporario").innerText = "A cor escolhida foi " + localStorage.getItem("cor")
         
@@ -36,10 +40,13 @@
         ctx.strokeStyle = "green";
         ctx.fillStyle = "white"
 
+
+        // array que guarda todas as entidades para podermos loopar por cada e atualiza-la
         let enemies = []
         let bullets = []
         let enemy_bullets = []
 
+        // classe base para demonstrar coisas
         class Object {
             constructor(x, y, width, height) {
                 this.x = x
@@ -51,6 +58,7 @@
         class Enemy extends Object {
             direction_x
             speed = 1
+            random_bound = 0
             constructor(x, y, width, height) {
                 super(x, y, width, height)
                 let rand_num = Math.round(Math.random())
@@ -58,7 +66,8 @@
                 if (rand_num == 0) {rand_num = -1;}
                 
                 this.direction_x = rand_num
-                this.speed = Math.round((Math.random() + 1) * 3)
+                this.speed = getRandomInt(5) + 1
+                this.random_bound = getRandomInt(200)
             }
         }
 
@@ -74,7 +83,6 @@
             speed = 1
             constructor(x, y, width, height) {
                 super(x, y, width, height)
-                
             }
         }
         class Player extends Object {
@@ -92,34 +100,41 @@
         
 
         // criar alguns inimigos
-        enemies.push(new Enemy(width / 2, 150, 20, 20))
+        enemies.push(new Enemy(width / 2, 250, 20, 20))
         enemies.push(new Enemy(width / 2, 200, 20, 20))
+        enemies.push(new Enemy(width / 2, 100, 20, 20))
         enemies.push(new Enemy(width / 2, 50, 20, 20))
+        enemies.push(new Enemy(width / 2, 0, 20, 20))
+        const n_enemies = enemies.length
 
-        enemies.forEach(enemy => {
+        for (let i = 0; i < enemies.length; i++) {
             setInterval(() => {
-                enemy_bullets.push(new EnemyBullet(enemy.x + enemy.width /2, enemy.y + enemy.height / 2, 15, 15))
-            }, Math.round(Math.random() * 10000))
-            
-        })
-        console.log(enemy_bullets)
+                if (enemies[i] == undefined || enemies[i] == null) { return }
+                enemy_bullets.push(new EnemyBullet(enemies[i].x + enemies[i].width /2, enemies[i].y + enemies[i].height / 2, 5, 15))
+            }, Math.round((Math.random() + 0.1) * 8000))
+        }
         // game loop
         function render() {
-            if (enemies.length <=1) {
+            if (enemies.length <= 0 || enemies.every((x) => x == undefined)) {
                 setTimeout(() => {
                     ctx.font = "50px serif";
                     ctx.fillStyle = 'white'
                     ctx.clearRect(0, 0, width, height);
                     ctx.fillText("YOU WON!", width / 2 - 110, height /2)
-                }, 2000)
+
+                    // scores, depois mudar
+                    
+                    
+                    add_score(new Score(localStorage.getItem("Nome"), n_enemies))
+                }, 1000)
                 return
             } else if (player.has_lost) {
                 setTimeout(() => {
                     ctx.font = "50px serif";
                     ctx.fillStyle = 'white'
                     ctx.clearRect(0, 0, width, height);
-                    ctx.fillText("YOU LOST!", width / 2 - 110, height /2)
-                }, 2000)
+                    ctx.fillText("YOU LOST!", width / 2 - 115, height /2)
+                }, 100)
                 return
             }
             requestAnimationFrame(render);
@@ -130,6 +145,10 @@
 
             update(player)
             
+            bullets.forEach(bullet => {
+                update_bullet(bullet)
+            })
+
             enemies.forEach(enemy => {
                 update_enemy(enemy)
             });
@@ -138,33 +157,30 @@
                 update_enemy_bul(bul)
             })
             
-            bullets.forEach(bullet => {
-                update_bullet(bullet)
-            })
+            
         }
         window.onload = render;
 
-        // movimento player e balas
-
         // keys pressed é usado para podermos clicar em varios botoes ao mesmo tempo
         let keysPressed = {}
+
         document.addEventListener('keydown', (e) => {
+            // movimento player
             keysPressed[e.key] = true
-            if (keysPressed["ArrowLeft"] == true && player.x > 100) {
-                //move left
+            if (keysPressed["ArrowLeft"] == true && player.x >= 0) {
                 player.x -= player.speed;
+
             } if(keysPressed["ArrowUp"] == true && player.y > height - 150) {
-                //move up
                 player.y -= player.speed;
                 
-            } if (keysPressed["ArrowRight"] == true && player.x < width - 100) {
-                // move right
+            } if (keysPressed["ArrowRight"] == true && player.x + player.width <= width) {
                 player.x += player.speed;
+
            } if (keysPressed["ArrowDown"] == true && player.y < height - player.height - 10) {
-                //move down
                 player.y += player.speed;
             }
 
+            // disparar
             if (keysPressed[" "] && player.can_shoot) {
                 player.can_shoot = false
                 setTimeout(() => {
@@ -175,29 +191,51 @@
             }
         })
 
+        // tirar das keysPressed
         document.addEventListener('keyup', (e) => {
             delete keysPressed[e.key]
         })
 
         // helper functions
         function update(obj) {
-            ctx.fillStyle = 'white'
+            switch (localStorage.getItem("cor")) {
+                case "Vermelho":
+                    ctx.fillStyle = 'red'
+                    break
+                case "Rosa":
+                    ctx.fillStyle = 'pink'
+                    break
+                case "Azul":
+                    ctx.fillStyle = 'blue'
+                    break
+                case "Verde":
+                    ctx.fillStyle = 'green'
+                    break
+                default:
+                    ctx.fillStyle = 'white'
+                    break
+            }
+
+            
             ctx.fillRect(obj.x, obj.y, obj.width, obj.height)
         }
 
+        // esta funcao é chamada para cada inimigo vivo e atualiza a sua posicao
         function update_enemy(enemy) {
 
             enemy.x += enemy.speed * enemy.direction_x
-
+            //enemy.y = calcSineY(enemy.y)
             ctx.fillStyle = 'red'
             ctx.fillRect(enemy.x, enemy.y, enemy.width, enemy.height)
 
-            if (enemy.x + enemy.width >= width) {
+            if (enemy.x + enemy.width >= width - enemy.random_bound) {
                 enemy.direction_x *= -1
-            } else if (enemy.x - enemy.width <= 0) {
+            } else if (enemy.x <= 0 + enemy.random_bound) {
                 enemy.direction_x *= -1
             }
         }
+
+        // esta funcao é chamada para cada bala disparada pelo inimigo vivo e atualiza a sua posicao
         function update_enemy_bul(bul) {
             bul.y += bul.speed
             ctx.fillStyle = 'purple'
@@ -205,15 +243,19 @@
             if (collides(bul, player)) {
                 player.has_lost = true
             }
+            
         }
+
+        // esta funcao atualiza cada bala disparada pelo player
         function update_bullet(bul) {
             bul.y -= bul.speed
             ctx.fillStyle = 'green'
             ctx.fillRect(bul.x, bul.y, bul.width, bul.height)
 
-            // if bullet collides with object then delete it
+            // se a bala colide com um inimigo entao mata o inimigo 
             for (let i = 0; i < enemies.length; i++) {
                 if (collides(enemies[i], bul)) {
+                    delete enemies[i]
                     enemies.splice(i, i)
                 }
             }
@@ -232,6 +274,9 @@
                 obj1.y + obj1.height > obj2.y
         }
         
+        function getRandomInt(max) {
+            return Math.floor(Math.random() * max);
+        }
         
     </script>
 </body>
