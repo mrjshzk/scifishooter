@@ -59,6 +59,7 @@
             direction_x
             speed = 1
             random_bound = 0
+            img = null
             constructor(x, y, width, height) {
                 super(x, y, width, height)
                 let rand_num = Math.round(Math.random())
@@ -68,6 +69,9 @@
                 this.direction_x = rand_num
                 this.speed = getRandomInt(5) + 1
                 this.random_bound = getRandomInt(200)
+                let temp_img = new Image()
+                temp_img.src = "imagens/Inimigo.png"
+                this.img = temp_img
             }
         }
 
@@ -86,12 +90,38 @@
             }
         }
         class Player extends Object {
+<<<<<<< Updated upstream
             speed = 5
+=======
+            speed = 2
+>>>>>>> Stashed changes
             can_shoot = true
             has_lost = false
             bullet_delay = 100 // em milisegundos
+            img = null
             constructor(x, y, width, height) {
                 super(x, y, width, height)
+                
+                let temp_img = new Image()
+                switch (localStorage.getItem("cor")) {
+                    case "Vermelho":
+                        temp_img.src = "imagens/Vermelho.png"
+                        break
+                    case "Rosa":
+                        temp_img.src = "imagens/Rosa.png"
+                        break
+                    case "Azul":
+                        temp_img.src = "imagens/Azul.png"
+                        break
+                    case "Verde":
+                        temp_img.src = "imagens/Verde.png"
+                        break
+                    default:
+                        temp_img.src = "imagens/Branco.png"
+                        break
+                }
+
+                this.img = temp_img
             }
         }
 
@@ -117,11 +147,11 @@
         
 
         // criar alguns inimigos
-        enemies.push(new Enemy(width / 2, 250, 20, 20))
-        enemies.push(new Enemy(width / 2, 200, 20, 20))
-        enemies.push(new Enemy(width / 2, 100, 20, 20))
-        enemies.push(new Enemy(width / 2, 50, 20, 20))
-        enemies.push(new Enemy(width / 2, 0, 20, 20))
+        enemies.push(new Enemy(width / 2, 250, 30, 30))
+        enemies.push(new Enemy(width / 2, 200, 30, 30))
+        enemies.push(new Enemy(width / 2, 100, 30, 30))
+        enemies.push(new Enemy(width / 2, 50, 30, 30))
+        enemies.push(new Enemy(width / 2, 0, 30, 30))
         const n_enemies = enemies.length
 
         for (let i = 0; i < enemies.length; i++) {
@@ -184,6 +214,10 @@
         document.addEventListener('keydown', (e) => {
             // movimento player
             keysPressed[e.key] = true
+<<<<<<< Updated upstream
+=======
+            
+>>>>>>> Stashed changes
         })
 
         // tirar das keysPressed
@@ -193,8 +227,11 @@
 
         // helper functions
         function update(obj) {
+<<<<<<< Updated upstream
             ctx.fillStyle = corPlayer
 
+=======
+>>>>>>> Stashed changes
             if (keysPressed["ArrowLeft"] == true && player.x >= 0) {
                 player.x -= player.speed;
 
@@ -218,16 +255,22 @@
                 bullets.push(new_bul)
             }
 
+<<<<<<< Updated upstream
             ctx.fillRect(obj.x, obj.y, obj.width, obj.height)
+=======
+            ctx.drawImage(obj.img, obj.x, obj.y, obj.width, obj.height)
+>>>>>>> Stashed changes
         }
 
         // esta funcao é chamada para cada inimigo vivo e atualiza a sua posicao
         function update_enemy(enemy) {
 
             enemy.x += enemy.speed * enemy.direction_x
-            //enemy.y = calcSineY(enemy.y)
-            ctx.fillStyle = 'red'
-            ctx.fillRect(enemy.x, enemy.y, enemy.width, enemy.height)
+            
+            // substituir
+            ctx.drawImage(enemy.img ,enemy.x, enemy.y, enemy.width, enemy.height)
+
+            
 
             if (enemy.x + enemy.width >= width - enemy.random_bound) {
                 enemy.direction_x *= -1
@@ -239,8 +282,11 @@
         // esta funcao é chamada para cada bala disparada pelo inimigo vivo e atualiza a sua posicao
         function update_enemy_bul(bul) {
             bul.y += bul.speed
+
+            // substituir
             ctx.fillStyle = 'purple'
             ctx.fillRect(bul.x, bul.y, bul.width, bul.height)
+
             if (collides(bul, player)) {
                 player.has_lost = true
             }
@@ -250,6 +296,8 @@
         // esta funcao atualiza cada bala disparada pelo player
         function update_bullet(bul) {
             bul.y -= bul.speed
+
+            // substituir
             ctx.fillStyle = 'green'
             ctx.fillRect(bul.x, bul.y, bul.width, bul.height)
 
