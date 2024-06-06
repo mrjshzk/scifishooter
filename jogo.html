@@ -90,14 +90,10 @@
             }
         }
         class Player extends Object {
-<<<<<<< Updated upstream
-            speed = 5
-=======
             speed = 2
->>>>>>> Stashed changes
             can_shoot = true
             has_lost = false
-            bullet_delay = 100 // em milisegundos
+            bullet_delay = 500 // em milisegundos
             img = null
             constructor(x, y, width, height) {
                 super(x, y, width, height)
@@ -190,7 +186,7 @@
             // apagar tudo antes de atualizar
             ctx.clearRect(0, 0, width, height);
 
-            update(player)
+            update_player(player)
             
             bullets.forEach(bullet => {
                 update_bullet(bullet)
@@ -214,10 +210,7 @@
         document.addEventListener('keydown', (e) => {
             // movimento player
             keysPressed[e.key] = true
-<<<<<<< Updated upstream
-=======
             
->>>>>>> Stashed changes
         })
 
         // tirar das keysPressed
@@ -226,12 +219,7 @@
         })
 
         // helper functions
-        function update(obj) {
-<<<<<<< Updated upstream
-            ctx.fillStyle = corPlayer
-
-=======
->>>>>>> Stashed changes
+        function update_player(obj) {
             if (keysPressed["ArrowLeft"] == true && player.x >= 0) {
                 player.x -= player.speed;
 
@@ -255,11 +243,7 @@
                 bullets.push(new_bul)
             }
 
-<<<<<<< Updated upstream
-            ctx.fillRect(obj.x, obj.y, obj.width, obj.height)
-=======
             ctx.drawImage(obj.img, obj.x, obj.y, obj.width, obj.height)
->>>>>>> Stashed changes
         }
 
         // esta funcao é chamada para cada inimigo vivo e atualiza a sua posicao
