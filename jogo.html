@@ -86,7 +86,7 @@
             }
         }
         class Player extends Object {
-            speed = 10
+            speed = 5
             can_shoot = true
             has_lost = false
             bullet_delay = 100 // em milisegundos
@@ -96,7 +96,24 @@
         }
 
         let player = new Player(width / 2 - 15, height - 100, 30, 30)
-        
+        let corPlayer = 'white'
+        switch (localStorage.getItem("cor")) {
+                case "Vermelho":
+                    corPlayer = 'red'
+                    break
+                case "Rosa":
+                    corPlayer = 'pink'
+                    break
+                case "Azul":
+                    corPlayer = 'blue'
+                    break
+                case "Verde":
+                    corPlayer = 'green'
+                    break
+                default:
+                    corPlayer = 'white'
+                    break
+            }
         
 
         // criar alguns inimigos
@@ -167,6 +184,17 @@
         document.addEventListener('keydown', (e) => {
             // movimento player
             keysPressed[e.key] = true
+        })
+
+        // tirar das keysPressed
+        document.addEventListener('keyup', (e) => {
+            delete keysPressed[e.key]
+        })
+
+        // helper functions
+        function update(obj) {
+            ctx.fillStyle = corPlayer
+
             if (keysPressed["ArrowLeft"] == true && player.x >= 0) {
                 player.x -= player.speed;
 
@@ -179,44 +207,17 @@
            } if (keysPressed["ArrowDown"] == true && player.y < height - player.height - 10) {
                 player.y += player.speed;
             }
-
+            
             // disparar
             if (keysPressed[" "] && player.can_shoot) {
                 player.can_shoot = false
                 setTimeout(() => {
                     player.can_shoot = true
                 }, player.bullet_delay)
-                let new_bul = new Bullet(player.x + player.width / 2 - 5, player.y + 10, 10, 10)
+                let new_bul = new Bullet(player.x + player.width / 2 - 5, player.y + 10, 5, 10)
                 bullets.push(new_bul)
             }
-        })
 
-        // tirar das keysPressed
-        document.addEventListener('keyup', (e) => {
-            delete keysPressed[e.key]
-        })
-
-        // helper functions
-        function update(obj) {
-            switch (localStorage.getItem("cor")) {
-                case "Vermelho":
-                    ctx.fillStyle = 'red'
-                    break
-                case "Rosa":
-                    ctx.fillStyle = 'pink'
-                    break
-                case "Azul":
-                    ctx.fillStyle = 'blue'
-                    break
-                case "Verde":
-                    ctx.fillStyle = 'green'
-                    break
-                default:
-                    ctx.fillStyle = 'white'
-                    break
-            }
-
-            
             ctx.fillRect(obj.x, obj.y, obj.width, obj.height)
         }
 
