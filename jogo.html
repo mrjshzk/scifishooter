@@ -7,17 +7,19 @@
     <link rel="stylesheet" href="styles.css">
     <style>
         canvas {
+            position: absolute;
+            top: 47%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             border: 10px solid rgb(1, 0, 52);
             background-clip: border-box;
-            width: 80vw;
-            height: 80vh;
         } 
         body, html { margin: 0px;} 
     </style>
 </head>
 <body>
     
-    <canvas id="canv" width="1280px" height="720px" style="background-color: black;">Your browser does not support canvas.</canvas>
+    <canvas id="canv" width="1280px" height="620px" style="background-color: black;">Your browser does not support canvas.</canvas>
     <footer>
         <a target="_blank" href="scoreboard.html">Scoreboard</a>
     </footer>
@@ -163,7 +165,7 @@
         function render() {
             if (enemies.length <= 0 || enemies.every((x) => x == undefined)) {
                 setTimeout(() => {
-                    ctx.font = "50px serif";
+                    ctx.font ='Helvetica Neue';
                     ctx.fillStyle = 'white'
                     ctx.clearRect(0, 0, width, height);
                     ctx.fillText("YOU WON!", width / 2 - 110, height /2)
@@ -176,10 +178,10 @@
                 return
             } else if (player.has_lost) {
                 setTimeout(() => {
-                    ctx.font = "50px serif";
+                    ctx.font = 'bold 70px Helvetica Neue';
                     ctx.fillStyle = 'white'
                     ctx.clearRect(0, 0, width, height);
-                    ctx.fillText("YOU LOST!", width / 2 - 115, height /2)
+                    ctx.fillText("YOU LOST!", width / 2 - 200, height /2)
                 }, 100)
                 return
             }
